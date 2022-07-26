@@ -1,50 +1,51 @@
+<?php
 $posts = get_posts(array(
-        'post_type' => 'post',
-        'posts_per_page' => -1,
-	));
+	'post_type' => 'post',
+	'posts_per_page' => -1,
+));
 
 
-	foreach ( $posts as $index => $post ){
-		$attached = get_post_thumbnail_id( $post->ID );
-		if( $attached ) continue;
+foreach ( $posts as $index => $post ){
+	$attached = get_post_thumbnail_id( $post->ID );
+	if( $attached ) continue;
 
-		//$attachment = get_post_meta( $post->ID, '_saved_image_featured_image_url', true );
-		preg_match("#src='([^']+)'#", $post->post_content, $matches);
-		$attachment = $matches[1];
-		
-		if( $attachment ){
-			echo $post->ID . PHP_EOL;
-			$filename = str_replace((get_site_url() . '/'), '', $attachment);
+	//$attachment = get_post_meta( $post->ID, '_saved_image_featured_image_url', true );
+	preg_match("#src='([^']+)'#", $post->post_content, $matches);
+	$attachment = $matches[1];
 
-			// ID поста, к которому прикрепим вложение.
-			$parent_post_id = $post->ID;
+	if( $attachment ){
+		echo $post->ID . PHP_EOL;
+		$filename = str_replace((get_site_url() . '/'), '', $attachment);
 
-			// Проверим тип поста, который мы будем использовать в поле 'post_mime_type'.
-			$filetype = wp_check_filetype( basename( $filename ), null );
+		// ID поста, к которому прикрепим вложение.
+		$parent_post_id = $post->ID;
 
-			// Получим путь до директории загрузок.
-			$wp_upload_dir = wp_upload_dir();
+		// Проверим тип поста, который мы будем использовать в поле 'post_mime_type'.
+		$filetype = wp_check_filetype( basename( $filename ), null );
 
-			// Подготовим массив с необходимыми данными для вложения.
-			$attachment = array(
-				'guid'           => $wp_upload_dir['url'] . '/' . basename( $filename ),
-				'post_mime_type' => $filetype['type'],
-				'post_title'     => preg_replace( '/\.[^.]+$/', '', basename( $filename ) ),
-				'post_content'   => '',
-				'post_status'    => 'inherit'
-			);
+		// Получим путь до директории загрузок.
+		$wp_upload_dir = wp_upload_dir();
 
-			// Вставляем запись в базу данных.
-			$attach_id = wp_insert_attachment( $attachment, $filename, $parent_post_id );
+		// Подготовим массив с необходимыми данными для вложения.
+		$attachment = array(
+			'guid'           => $wp_upload_dir['url'] . '/' . basename( $filename ),
+			'post_mime_type' => $filetype['type'],
+			'post_title'     => preg_replace( '/\.[^.]+$/', '', basename( $filename ) ),
+			'post_content'   => '',
+			'post_status'    => 'inherit'
+		);
 
-			// Подключим нужный файл, если он еще не подключен
-			// wp_generate_attachment_metadata() зависит от этого файла.
-			require_once( ABSPATH . 'wp-admin/includes/image.php' );
+		// Вставляем запись в базу данных.
+		$attach_id = wp_insert_attachment( $attachment, $filename, $parent_post_id );
 
-			// Создадим метаданные для вложения и обновим запись в базе данных.
-			$attach_data = wp_generate_attachment_metadata( $attach_id, $filename );
-			wp_update_attachment_metadata( $attach_id, $attach_data );
-			set_post_thumbnail( $post->ID, $attach_id );
-		}
+		// Подключим нужный файл, если он еще не подключен
+		// wp_generate_attachment_metadata() зависит от этого файла.
+		require_once( ABSPATH . 'wp-admin/includes/image.php' );
+
+		// Создадим метаданные для вложения и обновим запись в базе данных.
+		$attach_data = wp_generate_attachment_metadata( $attach_id, $filename );
+		wp_update_attachment_metadata( $attach_id, $attach_data );
+		set_post_thumbnail( $post->ID, $attach_id );
 	}
-	die();
+}
+die();
