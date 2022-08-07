@@ -14,16 +14,16 @@
 
 ## Для экспорта в фомате CSV
 Данная инструкция подойдёт если выборку достаточно лишь посмотреть, а не заливать обратно в phpmyadmin. Или можно открыть в Excel или в гугл таблицах.
-```sql
-SELECT * FROM \`big\` WHERE \`IsslName\` = 'HIV' INTO OUTFILE 'E:\\outfile.csv' FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n';
-```
 
 ### Шаги
 1. Открыть консоль через OpenServer
 2. Написать в консоли `mysql -u root -p`
 3. Попросит ввести пароль, ввести `root`
 4. Сначала выбрать базу данных. Пишем `use data;` где `use` это команда, а `data` название БД
-5. Формируем запрос на выборку. Пишем ```SELECT * FROM \`big\` WHERE \`IsslName\` = 'HIV' INTO OUTFILE 'E:\\outfile.csv' FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n';```
+5. Формируем запрос на выборку. Пишем команду ниже
+```sql
+SELECT * FROM \`big\` WHERE \`IsslName\` = 'HIV' INTO OUTFILE 'E:\\outfile.csv' FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n';
+```
 6. По указанному пути проверяем что файл есть. Готово
 
 Этот тип хорош для экспорта, при малой выборке csv можно прямиком через phpmyadmin импортировать (где-то до 200 000 строк). 
