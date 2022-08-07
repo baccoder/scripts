@@ -14,6 +14,9 @@
 
 ## Для экспорта в фомате CSV
 Данная инструкция подойдёт если выборку достаточно лишь посмотреть, а не заливать обратно в phpmyadmin. Или можно открыть в Excel или в гугл таблицах.
+```sql
+SELECT * FROM \`big\` WHERE \`IsslName\` = 'HIV' INTO OUTFILE 'E:\\outfile.csv' FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n';
+```
 
 ### Шаги
 1. Открыть консоль через OpenServer
