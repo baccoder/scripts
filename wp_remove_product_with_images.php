@@ -1,3 +1,4 @@
+<?php
 add_action('wp_ajax_nopriv_cosmo_remove_product', function(){
 	$product = get_posts( array(
 		'post_type' => 'product',
