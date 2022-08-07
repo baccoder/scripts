@@ -20,8 +20,7 @@
 2. Написать в консоли `mysql -u root -p`
 3. Попросит ввести пароль, ввести `root`
 4. Сначала выбрать базу данных. Пишем `use data;` где `use` это команда, а `data` название БД
-5. Формируем запрос на выборку. Пишем ```sql
-SELECT * FROM \`big\` WHERE \`IsslName\` = 'HIV' INTO OUTFILE 'E:\\outfile.csv' FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n';```
+5. Формируем запрос на выборку. Пишем ```SELECT * FROM \`big\` WHERE \`IsslName\` = 'HIV' INTO OUTFILE 'E:\\outfile.csv' FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n';```
 6. По указанному пути проверяем что файл есть. Готово
 
 Этот тип хорош для экспорта, при малой выборке csv можно прямиком через phpmyadmin импортировать (где-то до 200 000 строк). 
