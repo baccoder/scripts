@@ -40,7 +40,7 @@ SELECT * FROM `big` WHERE `IsslName` = 'HIV' INTO OUTFILE 'E:\\outfile.csv' FIEL
 4. Сначала выбрать базу данных. Написать `use data;` где `use` это команда, а `data` название базы данных
 5. Написать команду `source` и путь к дампу (файл котрый был экспортирован в формате SQL) 
 ```sql
-source e:\\dump.sql
+source e:\\dump.sql;
 ```
 6. Подождать пока импорт закончится. После можно открыть phpmyadmin и манипулировать данными
 
