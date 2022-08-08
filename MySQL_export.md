@@ -6,7 +6,7 @@
 1. Открыть консоль через OpenServer
 2. Написать команду ниже
 ```console
-mysqldump -u root -proot data big --where="\`IsslName\` = 'HIV'" > e:\\dump.sql
+mysqldump -u root -proot data big --where="`IsslName` = 'HIV'" > e:\\dump.sql
 ```
 3. По указанному пути проверить что файл есть. Готово
 
