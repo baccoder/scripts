@@ -9,7 +9,8 @@ function convert_tax( $old_tax, $new_tax ) {
                 'taxonomy' => $old_tax,
                 'operator' => 'EXISTS'
             )
-        )
+        ),
+        'fields' => 'ids',
     ) );
 
     foreach ( $pages as $post ) {
@@ -23,6 +24,7 @@ function convert_tax( $old_tax, $new_tax ) {
             }
 
             $post_new_terms[] = (int) $new_term['term_id'];
+            //wp_remove_object_terms( $post_id, $old_term->slug, $old_tax );
         }
 
         wp_set_object_terms( $post->ID, $post_new_terms, $new_tax );
