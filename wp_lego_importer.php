@@ -17,7 +17,7 @@ foreach ( $products as $i => $product ) {
 		'description'       => $main_product['description'],
 		'short_description' => $main_product['shortDescription'],
 		'sku'               => $main_product['id'],
-		'category_ids'      => [ 98 ], // set cat ids
+		'category_ids'      => get_category_ids( [ 'Category Name' ] ), // set cat ids
 		'image_id'          => get_attachment_id_by_url( $main_product['mainImage'] ),
 		'gallery_ids'       => get_attachments_id_by_url( $main_product['galleryImages'] ),
 		'regular_price'     => $main_product['regularPrice'],
@@ -421,4 +421,18 @@ function create_product_variation( $product_id, $variation_data ) {
 	//$variation->set_weight( '' ); // weight (reseting)
 
 	$variation->save(); // Save the data
+}
+
+function get_category_ids( $cat_names ){
+    $cat_ids = [];
+    foreach ( $cat_names as $cat_name ) {
+        $new_term = get_term_by( 'name', $cat_name, 'product_cat', ARRAY_A );
+        if ( $new_term === false ) {
+            $new_term = wp_insert_term( $cat_name, 'product_cat', $args = array() );
+        }
+
+        $cat_ids[] = (int) $new_term['term_id'];
+    }
+
+    return $cat_ids;
 }
