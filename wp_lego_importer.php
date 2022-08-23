@@ -1,4 +1,7 @@
 <?php
+
+// @TODO: Registering new attribute taxonomy doesn't work
+
 //$products = file_get_contents( '/url_or_path_to/file' );
 $products = file_get_contents( __DIR__ . '/products/test.json' );
 $products = json_decode( $products, true );
@@ -148,10 +151,7 @@ function wc_prepare_product_attributes( $attributes ) {
 
 
 	foreach ( $attributes as $taxonomy => $values ) {
-		if ( ! taxonomy_exists( $taxonomy ) ) {
-			continue;
-		}
-
+		
 		if ( ! taxonomy_exists( $taxonomy ) ) {
 			register_taxonomy( $taxonomy, 'product_variation', array(
 				'hierarchical' => false,
@@ -367,6 +367,8 @@ function create_product_variation( $product_id, $variation_data ) {
 
 		// Set/save the attribute data in the product variation
 		update_post_meta( $variation_id, 'attribute_' . $taxonomy, $term_slug );
+		//update_post_meta( $variation_id, 'attribute_pa_' . strtolower( rawurlencode( $attribute ) ), $term_slug );
+
 	}
 
 	## Set/save all other data
