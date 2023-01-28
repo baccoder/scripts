@@ -6,11 +6,11 @@
 
 ## Инструкция
 1. В самое начало индексного файла, перед любым кодом вставить следующий сниппет
-```
+```php
 <?php ob_start(); ?>
 ```
 2. В самый конец индексного файла, после закрывающего тега `</html>` вставить следующий сниппет
-```
+```php
 <?php
 function replace_first( $find, $replace, $subject ) {
 	// stolen from the comments at PHP.net/str_replace
