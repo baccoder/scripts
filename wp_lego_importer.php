@@ -437,3 +437,29 @@ function get_category_ids( $cat_names ){
 
     return $cat_ids;
 }
+
+function create_term_hierarchy( $term_string ) {
+	$terms  = explode( '|', $term_string );
+	$parent = 0; // Initialize parent as 0 (top level)
+	
+	foreach ( $terms as $term_name ) {
+		// Check if the term exists
+		$existing_term = term_exists( $term_name, 'product_cat', $parent );
+		
+		if ( $existing_term ) {
+			// Term exists, set it as the parent for the next iteration
+			$parent = $existing_term[ 'term_id' ];
+		}
+		else {
+			// Term doesn't exist, create it and set it as the parent
+			$args     = array(
+				'parent' => $parent,
+			);
+			$new_term = wp_insert_term( $term_name, 'product_cat', $args );
+			$parent   = $new_term[ 'term_id' ];
+		}
+	}
+	
+	// Return the last created term ID
+	return $parent;
+}
