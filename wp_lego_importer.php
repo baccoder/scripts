@@ -25,7 +25,7 @@ foreach ( $products as $i => $product ) {
 		'reviews'   => true,
 		'attributes'        => array(
 			'pa_color' => array(
-				'term_names'    => $main_product['colors'],
+				'term_names'    => array('value 1', 'value 2'),
 				'is_visible'    => true,
 				'for_variation' => true,
 			),
