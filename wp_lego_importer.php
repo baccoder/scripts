@@ -218,8 +218,9 @@ function create_product( $args ) {
 
 	// Product name (Title) and slug
 	$product->set_name( $args['name'] ); // Name (title).
+	
 	if ( isset( $args['slug'] ) ) {
-		$product->set_name( $args['slug'] );
+		$product->set_slug( $args['slug'] );
 	}
 
 	// Description and short description:
