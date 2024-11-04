@@ -56,7 +56,9 @@ foreach ( $products as $i => $product ) {
 				'size'  => $variable['size']
 			),
 		);
-		create_product_variation( $product_id, $variation_data );
+		$variation_ids = create_product_variation( $product_id, $variation_data );
+
+		$product->set_children( $variation_ids ); 
 	}
 
 	foreach ( $product['reviews'] as $index => $review ) {
